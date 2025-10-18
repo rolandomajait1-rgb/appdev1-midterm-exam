@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import Images from './images'
 import './bootstrap/css/bootstrap.min.css'
 import './css/fontawesome.css'
@@ -7,12 +7,18 @@ import './css/owl.css'
 import './css/animated.css'
 
 
+
 function App() {
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  useEffect(() => {
+    setIsLoaded(true);
+  }, []);
 
 
   return (
     <>
-     <div id="js-preloader" className="js-preloader">
+     <div id="js-preloader" className={`js-preloader ${isLoaded ? 'loaded' : ''}`}>
     <div className="preloader-inner">
       <span className="dot" />
       <div className="dots">
