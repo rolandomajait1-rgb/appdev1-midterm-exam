@@ -1,4 +1,6 @@
 import React from 'react'
+import Images from './images'
+
 
 function App() {
 
@@ -28,7 +30,7 @@ function App() {
           <nav className="main-nav">
             {/* ***** Logo Start ***** */}
             <a href="index.html" className="logo">
-              <img src="assets/images/logo.png" alt="Chain App Dev" />
+              <img src={Images.logo} alt="Chain App Dev" />
             </a>
             {/* ***** Logo End ***** */}
             {/* ***** Menu Start ***** */}
@@ -218,7 +220,7 @@ function App() {
                 data-wow-duration="1s"
                 data-wow-delay="0.5s"
               >
-                <img src="assets/images/slider-dec.png" alt="" />
+                <img src={Images.sliderDec} alt="" />
               </div>
             </div>
           </div>
@@ -238,7 +240,7 @@ function App() {
             <h4>
               Amazing <em>Services &amp; Features</em> for you
             </h4>
-            <img src="assets/images/heading-line-dec.png" alt="" />
+            <img src={Images.headingLineDec} alt="" />
             <p>
               If you need the greatest collection of HTML templates for your
               business, please visit{" "}
@@ -335,7 +337,7 @@ function App() {
             <h4>
               About <em>What We Do</em> &amp; Who We Are
             </h4>
-            <img src="assets/images/heading-line-dec.png" alt="" />
+            <img src={Images.headingLineDec} alt="" />
             <p>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
               eismod tempor incididunt ut labore et dolore magna.
@@ -388,7 +390,7 @@ function App() {
         </div>
         <div className="col-lg-6">
           <div className="right-image">
-            <img src="assets/images/about-right-dec.png" alt="" />
+            <img src={Images.aboutRightDec} alt="" />
           </div>
         </div>
       </div>
@@ -402,7 +404,7 @@ function App() {
             <h4>
               Check What <em>The Clients Say</em> About Our App Dev
             </h4>
-            <img src="assets/images/heading-line-dec.png" alt="" />
+            <img src={Images.headingLineDec} alt="" />
             <p>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
               eismod tempor incididunt ut labore et dolore magna.
@@ -532,7 +534,7 @@ function App() {
                           <div className="row">
                             <div className="col-lg-12">
                               <div className="client-content">
-                                <img src="assets/images/quote.png" alt="" />
+                                <img src={Images.quote} alt="" />
                                 <p>
                                   “Lorem ipsum dolor sit amet, consectetur
                                   adpiscing elit, sed do eismod tempor idunte ut
@@ -543,7 +545,7 @@ function App() {
                               </div>
                               <div className="down-content">
                                 <img
-                                  src="assets/images/client-image.jpg"
+                                  src={Images.clientImage}
                                   alt=""
                                 />
                                 <div className="right-content">
@@ -562,7 +564,7 @@ function App() {
                           <div className="row">
                             <div className="col-lg-12">
                               <div className="client-content">
-                                <img src="assets/images/quote.png" alt="" />
+                                <img src={Images.quote} alt="" />
                                 <p>
                                   “CTO, Lorem ipsum dolor sit amet, consectetur
                                   adpiscing elit, sed do eismod tempor idunte ut
@@ -573,7 +575,7 @@ function App() {
                               </div>
                               <div className="down-content">
                                 <img
-                                  src="assets/images/client-image.jpg"
+                                  src={Images.clientImage}
                                   alt=""
                                 />
                                 <div className="right-content">
@@ -592,7 +594,7 @@ function App() {
                           <div className="row">
                             <div className="col-lg-12">
                               <div className="client-content">
-                                <img src="assets/images/quote.png" alt="" />
+                                <img src={Images.quote} alt="" />
                                 <p>
                                   “May, Lorem ipsum dolor sit amet, consectetur
                                   adpiscing elit, sed do eismod tempor idunte ut
@@ -603,7 +605,7 @@ function App() {
                               </div>
                               <div className="down-content">
                                 <img
-                                  src="assets/images/client-image.jpg"
+                                  src={Images.clientImage}
                                   alt=""
                                 />
                                 <div className="right-content">
@@ -622,7 +624,7 @@ function App() {
                           <div className="row">
                             <div className="col-lg-12">
                               <div className="client-content">
-                                <img src="assets/images/quote.png" alt="" />
+                                <img src={Images.quote} alt="" />
                                 <p>
                                   “Lorem ipsum dolor sit amet, consectetur
                                   adpiscing elit, sed do eismod tempor idunte ut
@@ -633,7 +635,7 @@ function App() {
                               </div>
                               <div className="down-content">
                                 <img
-                                  src="assets/images/client-image.jpg"
+                                  src={Images.clientImage}
                                   alt=""
                                 />
                                 <div className="right-content">
@@ -652,7 +654,7 @@ function App() {
                           <div className="row">
                             <div className="col-lg-12">
                               <div className="client-content">
-                                <img src="assets/images/quote.png" alt="" />
+                                <img src={Images.quote} alt="" />
                                 <p>
                                   “Mark, Lorem ipsum dolor sit amet, consectetur
                                   adpiscing elit, sed do eismod tempor idunte ut
@@ -663,7 +665,7 @@ function App() {
                               </div>
                               <div className="down-content">
                                 <img
-                                  src="assets/images/client-image.jpg"
+                                  src={Images.clientImage}
                                   alt=""
                                 />
                                 <div className="right-content">
@@ -693,7 +695,7 @@ function App() {
             <h4>
               We Have The Best Pre-Order <em>Prices</em> You Can Get
             </h4>
-            <img src="assets/images/heading-line-dec.png" alt="" />
+            <img src={Images.headingLineDec} alt="" />
             <p>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
               eismod tempor incididunt ut labore et dolore magna.
@@ -705,7 +707,7 @@ function App() {
             <span className="price">$12</span>
             <h4>Standard Plan App</h4>
             <div className="icon">
-              <img src="assets/images/pricing-table-01.png" alt="" />
+              <img src={Images.pricingTable01} alt="" />
             </div>
             <ul>
               <li>Lorem Ipsum Dolores</li>
@@ -725,7 +727,7 @@ function App() {
             <span className="price">$25</span>
             <h4>Business Plan App</h4>
             <div className="icon">
-              <img src="assets/images/pricing-table-01.png" alt="" />
+              <img src={Images.pricingTable01} alt="" />
             </div>
             <ul>
               <li>Lorem Ipsum Dolores</li>
@@ -745,7 +747,7 @@ function App() {
             <span className="price">$66</span>
             <h4>Premium Plan App</h4>
             <div className="icon">
-              <img src="assets/images/pricing-table-01.png" alt="" />
+              <img src={Images.pricingTable01} alt="" />
             </div>
             <ul>
               <li>Lorem Ipsum Dolores</li>
@@ -882,7 +884,7 @@ function App() {
           <div className="footer-widget">
             <h4>About Our Company</h4>
             <div className="logo">
-              <img src="assets/images/white-logo.png" alt="" />
+              <img src={Images.whiteLogo} alt="" />
             </div>
             <p>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
