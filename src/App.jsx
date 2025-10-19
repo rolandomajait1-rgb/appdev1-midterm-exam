@@ -1,11 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import Images from './images'
-import './bootstrap/css/bootstrap.min.css'
-import './css/fontawesome.css'
-import './css/templatemo-chain-app-dev.css'
-import './css/owl.css'
-import './css/animated.css'
+
 
 
 
