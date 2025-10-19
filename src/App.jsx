@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react'
+import React from "react";
+import { useState } from "react";
 import Images from './images'
 import './bootstrap/css/bootstrap.min.css'
 import './css/fontawesome.css'
@@ -10,59 +11,51 @@ import './css/animated.css'
 
 function App() {
   const [toggleModal, setToggleModal] = useState(false);
-  const [isLogin, setIsLogin] = useState(true);
+  const [activeForm, setActiveForm] = useState('social');
 
   function handleToggleModal() {
     setToggleModal(!toggleModal);
+    setActiveForm('social'); // Reset to social on modal close
   }
 
+  function handleLogin(e) {
+    e.preventDefault();
+    alert('Login successful!');
+  }
 
-  useEffect(() => {
-    // Initialize WOW animations after component mounts
-    if (typeof window !== 'undefined' && window.WOW) {
-      const wow = new window.WOW({
-        animateClass: 'animated',
-        offset: 50
-      });
-      wow.init();
-    }
-    // Load scripts dynamically
-    const scripts = [
-      '/src/jquery/jquery.min.js',
-      '/src/bootstrap/js/bootstrap.bundle.min.js',
-      '/src/js/owl-carousel.js',
-      '/src/js/animation.js',
-      '/src/js/imagesloaded.js',
-      '/src/js/custom.js',
-      '/src/js/popup.js'
-    ];
+  function handleRegister(e) {
+    e.preventDefault();
+    alert('Registration successful!');
+  }
 
-    scripts.forEach(src => {
-      const script = document.createElement('script');
-      script.src = src;
-      script.async = true;
-      document.body.appendChild(script);
-    });
-  }, []);
+  function showLogin() {
+    setActiveForm('login');
+  }
 
+  function showRegister() {
+    setActiveForm('register');
+  }
+
+  function showSocial() {
+    setActiveForm('social');
+  }
 
   return (
     <>
-     {/* <div id="js-preloader" className={`js-preloader ${isLoaded ? 'loaded' : ''}`}>
-    <div className="preloader-inner">
-      <span className="dot" />
-      <div className="dots">
-        <span />
-        <span />
-        <span />
-      </div>
-    </div>
-  </div> */}
-  {/* ***** Preloader End ***** */}
-  {/* ***** Header Area Start ***** */}
+      {/* <div id="js-preloader" className="js-preloader">
+        <div className="preloader-inner">
+          <span className="dot" />
+          <div className="dots">
+            <span />
+            <span />
+            <span />
+          </div>
+        </div>
+      </div> */}
+    
   <header
     className="header-area header-sticky wow slideInDown"
-    data-wow-duration=".75s"
+    data-wow-duration="0.75s"
     data-wow-delay="0s"
   >
     <div className="container">
@@ -70,8 +63,8 @@ function App() {
         <div className="col-12">
           <nav className="main-nav">
             {/* ***** Logo Start ***** */}
-            <a href="#top" className="logo">
-              <img src={Images.logo} alt="Chain App Dev" />
+            <a href="index.html" className="logo">
+              <img src="assets/images/logo.png" alt="Chain App Dev" />
             </a>
             {/* ***** Logo End ***** */}
             {/* ***** Menu Start ***** */}
@@ -95,7 +88,7 @@ function App() {
               </li>
               <li>
                 <div className="gradient-button">
-                  <a id="modal_trigger" onClick={handleToggleModal}>
+                  <a id="modal_trigger" href="#modal" onClick={handleToggleModal}>
                     <i className="fa fa-sign-in-alt" /> Sign In Now
                   </a>
                 </div>
@@ -111,71 +104,68 @@ function App() {
     </div>
   </header>
   {/* ***** Header Area End ***** */}
-  {toggleModal && (
-    <div
-      id="modal"
-      className="popupContainer"
-      style={
-        toggleModal
-          ? {
-              display: "block",
-              position: "fixed",
-              opacity: 1,
-              zIndex: 11000,
-              left: "50%",
-              marginLeft: "-165px",
-              top: 100,
-            }
-          : {
-              display: "none",
-            }
-      }
-      role="dialog"
-      aria-hidden={!toggleModal}
-    >
-      <div className="modal-header">
-        <h2>LOG IN </h2>
-        <span className="modal_close" onClick={handleToggleModal}>
-          ×
-        </span>
-      </div>
-      <section className="popupBody">
-        {/* Social Login - always show */}
-        <div className="social_login">
-          <div className="">
-            <a href="#" className="social_box fb">
-              <span className="icon">
-                <i className="fab fa-facebook" />
-              </span>
-              <span className="icon_title">Connect with Facebook</span>
-            </a>
-            <a href="#" className="social_box google">
-              <span className="icon">
-                <i className="fab fa-google-plus" />
-              </span>
-              <span className="icon_title">Connect with Google</span>
+  <div
+    id="modal"
+    className="popupContainer"
+    style={
+      toggleModal
+        ? {
+            display: "block",
+            position: "fixed",
+            opacity: 1,
+            zIndex: 11000,
+            left: "50%",
+            marginLeft: "-165px",
+            top: 100,
+          }
+        : {
+            display: "none",
+          }
+    }
+  >
+    <div className="popupHeader">
+      <span className="header_title">Login</span>
+      <span className="modal_close" onClick={handleToggleModal}>
+        <i className="fa fa-times" />
+      </span>
+    </div>
+    <section className="popupBody">
+      {/* Social Login */}
+      <div className="social_login" style={{ display: activeForm === 'social' ? 'block' : 'none' }}>
+        <div className="">
+          <a href="#" className="social_box fb">
+            <span className="icon">
+              <i className="fab fa-facebook" />
+            </span>
+            <span className="icon_title">Connect with Facebook</span>
+          </a>
+          <a href="#" className="social_box google">
+            <span className="icon">
+              <i className="fab fa-google-plus" />
+            </span>
+            <span className="icon_title">Connect with Google</span>
+          </a>
+        </div>
+        <div className="centeredText">
+          <span>Or use your Email address</span>
+        </div>
+        <div className="action_btns">
+          <div className="one_half">
+            <a href="#" id="login_form" className="btn" onClick={showLogin}>
+              Login
             </a>
           </div>
-          <div className="centeredText">
-            <span>Or use your Email address</span>
-          </div>
-          <div className="action_btns">
-            <div className="one_half">
-              <a href="#" id="login_form" className="btn" onClick={() => setIsLogin(true)}>
-                Login
-              </a>
-            </div>
-            <div className="one_half last">
-              <a href="#" id="register_form" className="btn" onClick={() => setIsLogin(false)}>
-                Sign up
-              </a>
-            </div>
+          <div className="one_half last">
+            <a href="#" id="register_form" className="btn" onClick={showRegister}>
+              Sign up
+            </a>
           </div>
         </div>
+      </div>
         {/* Username & Password Login form */}
-        <div className="user_login" style={{ display: isLogin ? 'block' : 'none' }}>
-          <form>
-            <label>Username</label>
+        <div className="user_login" style={{ display: activeForm === 'login' ? 'block' : 'none' }}>
+          <form onSubmit={handleLogin}>
+            <label>Email / Username</label>
             <input type="text" />
             <br />
             <label>Password</label>
@@ -183,57 +173,60 @@ function App() {
             <br />
             <div className="checkbox">
               <input id="remember" type="checkbox" />
-              <label htmlFor="remember">
-                Remember me on this computer
-              </label>
+              <label htmlFor="remember">Remember me on this computer</label>
             </div>
             <div className="action_btns">
               <div className="one_half">
-                <a href="#" className="btn btn_red" onClick={() => alert('Login functionality not implemented')}>
-                  Login
+                <a href="#" className="btn back_btn" onClick={showSocial}>
+                  <i className="fa fa-angle-double-left" /> Back
                 </a>
               </div>
-            </div>
-          </form>
-        </div>
-        {/* Register Form */}
-        <div className="user_register" style={{ display: isLogin ? 'none' : 'block' }}>
-          <form>
-            <label>Full Name</label>
-            <input type="text" />
-            <br />
-            <label>Email Address</label>
-            <input type="email" />
-            <br />
-            <label>Password</label>
-            <input type="password" />
-            <br />
-            <div className="checkbox">
-              <input id="send_updates" type="checkbox" />
-              <label htmlFor="send_updates">
-                Send me occasional email updates
-              </label>
-            </div>
-            <div className="action_btns">
               <div className="one_half last">
-                <a href="#" className="btn btn_red" onClick={() => alert('Register functionality not implemented')}>
-                  Register
-                </a>
+                <button type="submit" className="btn btn_red">
+                  Login
+                </button>
               </div>
             </div>
           </form>
+          <a href="#" className="forgot_password">
+            Forgot password?
+          </a>
         </div>
-      </section>
-    </div>
-  )}
-  <div
-    id="lean_overlay"
-    style={
-      toggleModal
-        ? { display: "block", opacity: "0.6" }
-        : { display: "none" }
-    }
-  />
+      {/* Register Form */}
+      <div className="user_register" style={{ display: activeForm === 'register' ? 'block' : 'none' }}>
+        <h1>REGISTER</h1>
+        <form onSubmit={handleRegister}>
+          <label>Full Name</label>
+          <input type="text" />
+          <br />
+          <label>Email Address</label>
+          <input type="email" />
+          <br />
+          <label>Password</label>
+          <input type="password" />
+          <br />
+          <div className="checkbox">
+            <input id="send_updates" type="checkbox" />
+            <label htmlFor="send_updates">
+              Send me occasional email updates
+            </label>
+          </div>
+          <div className="action_btns">
+            <div className="one_half">
+              <a href="#" className="btn back_btn" onClick={showSocial}>
+                <i className="fa fa-angle-double-left" /> Back
+              </a>
+            </div>
+            <div className="one_half last">
+              <button type="submit" className="btn btn_red">
+                Register
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </section>
+  </div>
   <div
     className="main-banner wow fadeIn"
     id="top"
@@ -280,7 +273,7 @@ function App() {
                 data-wow-duration="1s"
                 data-wow-delay="0.5s"
               >
-                <img src={Images.sliderDec} alt="" />
+                <img src="assets/images/slider-dec.png" alt="" />
               </div>
             </div>
           </div>
@@ -300,7 +293,7 @@ function App() {
             <h4>
               Amazing <em>Services &amp; Features</em> for you
             </h4>
-            <img src={Images.headingLineDec} alt="" />
+            <img src="assets/images/heading-line-dec.png" alt="" />
             <p>
               If you need the greatest collection of HTML templates for your
               business, please visit{" "}
@@ -397,7 +390,7 @@ function App() {
             <h4>
               About <em>What We Do</em> &amp; Who We Are
             </h4>
-            <img src={Images.headingLineDec} alt="" />
+            <img src="assets/images/heading-line-dec.png" alt="" />
             <p>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
               eismod tempor incididunt ut labore et dolore magna.
@@ -450,7 +443,7 @@ function App() {
         </div>
         <div className="col-lg-6">
           <div className="right-image">
-            <img src={Images.aboutRightDec} alt="" />
+            <img src="assets/images/about-right-dec.png" alt="" />
           </div>
         </div>
       </div>
@@ -464,7 +457,7 @@ function App() {
             <h4>
               Check What <em>The Clients Say</em> About Our App Dev
             </h4>
-            <img src={Images.headingLineDec} alt="" />
+            <img src="assets/images/heading-line-dec.png" alt="" />
             <p>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
               eismod tempor incididunt ut labore et dolore magna.
@@ -594,7 +587,7 @@ function App() {
                           <div className="row">
                             <div className="col-lg-12">
                               <div className="client-content">
-                                <img src={Images.quote} alt="" />
+                                <img src="assets/images/quote.png" alt="" />
                                 <p>
                                   “Lorem ipsum dolor sit amet, consectetur
                                   adpiscing elit, sed do eismod tempor idunte ut
@@ -605,7 +598,7 @@ function App() {
                               </div>
                               <div className="down-content">
                                 <img
-                                  src={Images.clientImage}
+                                  src="assets/images/client-image.jpg"
                                   alt=""
                                 />
                                 <div className="right-content">
@@ -624,7 +617,7 @@ function App() {
                           <div className="row">
                             <div className="col-lg-12">
                               <div className="client-content">
-                                <img src={Images.quote} alt="" />
+                                <img src="assets/images/quote.png" alt="" />
                                 <p>
                                   “CTO, Lorem ipsum dolor sit amet, consectetur
                                   adpiscing elit, sed do eismod tempor idunte ut
@@ -635,7 +628,7 @@ function App() {
                               </div>
                               <div className="down-content">
                                 <img
-                                  src={Images.clientImage}
+                                  src="assets/images/client-image.jpg"
                                   alt=""
                                 />
                                 <div className="right-content">
@@ -654,7 +647,7 @@ function App() {
                           <div className="row">
                             <div className="col-lg-12">
                               <div className="client-content">
-                                <img src={Images.quote} alt="" />
+                                <img src="assets/images/quote.png" alt="" />
                                 <p>
                                   “May, Lorem ipsum dolor sit amet, consectetur
                                   adpiscing elit, sed do eismod tempor idunte ut
@@ -665,7 +658,7 @@ function App() {
                               </div>
                               <div className="down-content">
                                 <img
-                                  src={Images.clientImage}
+                                  src="assets/images/client-image.jpg"
                                   alt=""
                                 />
                                 <div className="right-content">
@@ -684,7 +677,7 @@ function App() {
                           <div className="row">
                             <div className="col-lg-12">
                               <div className="client-content">
-                                <img src={Images.quote} alt="" />
+                                <img src="assets/images/quote.png" alt="" />
                                 <p>
                                   “Lorem ipsum dolor sit amet, consectetur
                                   adpiscing elit, sed do eismod tempor idunte ut
@@ -695,7 +688,7 @@ function App() {
                               </div>
                               <div className="down-content">
                                 <img
-                                  src={Images.clientImage}
+                                  src="assets/images/client-image.jpg"
                                   alt=""
                                 />
                                 <div className="right-content">
@@ -714,7 +707,7 @@ function App() {
                           <div className="row">
                             <div className="col-lg-12">
                               <div className="client-content">
-                                <img src={Images.quote} alt="" />
+                                <img src="assets/images/quote.png" alt="" />
                                 <p>
                                   “Mark, Lorem ipsum dolor sit amet, consectetur
                                   adpiscing elit, sed do eismod tempor idunte ut
@@ -725,7 +718,7 @@ function App() {
                               </div>
                               <div className="down-content">
                                 <img
-                                  src={Images.clientImage}
+                                  src="assets/images/client-image.jpg"
                                   alt=""
                                 />
                                 <div className="right-content">
@@ -755,7 +748,7 @@ function App() {
             <h4>
               We Have The Best Pre-Order <em>Prices</em> You Can Get
             </h4>
-            <img src={Images.headingLineDec} alt="" />
+            <img src="assets/images/heading-line-dec.png" alt="" />
             <p>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
               eismod tempor incididunt ut labore et dolore magna.
@@ -767,7 +760,7 @@ function App() {
             <span className="price">$12</span>
             <h4>Standard Plan App</h4>
             <div className="icon">
-              <img src={Images.pricingTable01} alt="" />
+              <img src="assets/images/pricing-table-01.png" alt="" />
             </div>
             <ul>
               <li>Lorem Ipsum Dolores</li>
@@ -787,7 +780,7 @@ function App() {
             <span className="price">$25</span>
             <h4>Business Plan App</h4>
             <div className="icon">
-              <img src={Images.pricingTable01} alt="" />
+              <img src="assets/images/pricing-table-01.png" alt="" />
             </div>
             <ul>
               <li>Lorem Ipsum Dolores</li>
@@ -807,7 +800,7 @@ function App() {
             <span className="price">$66</span>
             <h4>Premium Plan App</h4>
             <div className="icon">
-              <img src={Images.pricingTable01} alt="" />
+              <img src="assets/images/pricing-table-01.png" alt="" />
             </div>
             <ul>
               <li>Lorem Ipsum Dolores</li>
@@ -944,7 +937,7 @@ function App() {
           <div className="footer-widget">
             <h4>About Our Company</h4>
             <div className="logo">
-              <img src={Images.whiteLogo} alt="" />
+              <img src="assets/images/white-logo.png" alt="" />
             </div>
             <p>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
@@ -971,6 +964,15 @@ function App() {
       </div>
     </div>
   </footer>
+  <div
+    id="lean_overlay"
+    onClick={handleToggleModal}
+    style={
+      toggleModal
+        ? { display: "block", opacity: "0.6" }
+        : { display: "none" }
+    }
+  />
     </>
   )
 }
