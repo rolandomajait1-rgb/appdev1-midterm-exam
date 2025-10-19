@@ -5,6 +5,8 @@ import './css/fontawesome.css'
 import './css/templatemo-chain-app-dev.css'
 import './css/owl.css'
 import './css/animated.css'
+import './js/animation.js'
+import './js/custom.js'
 
 
 
@@ -13,6 +15,21 @@ function App() {
 
   useEffect(() => {
     setIsLoaded(true);
+    // Initialize WOW animations after component mounts
+    if (typeof window !== 'undefined' && window.WOW) {
+      const wow = new window.WOW({
+        animateClass: 'animated',
+        offset: 50
+      });
+      wow.init();
+    }
+    // Initialize custom scripts after component mounts
+    if (typeof window !== 'undefined' && window.jQuery) {
+      // Page loading animation
+      window.jQuery(window).on('load', function() {
+        window.jQuery('#js-preloader').addClass('loaded');
+      });
+    }
   }, []);
 
 
@@ -32,7 +49,7 @@ function App() {
   {/* ***** Header Area Start ***** */}
   <header
     className="header-area header-sticky wow slideInDown"
-    data-wow-duration="0.75s"
+    data-wow-duration=".75s"
     data-wow-delay="0s"
   >
     <div className="container">
@@ -58,7 +75,7 @@ function App() {
                 <a href="#about">About</a>
               </li>
               <li className="scroll-to-section">
-                <a href="#pricing">Pricing</a>
+                <a href="#pSricing">Pricing</a>
               </li>
               <li className="scroll-to-section">
                 <a href="#newsletter">Newsletter</a>
