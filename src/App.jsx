@@ -5,16 +5,19 @@ import './css/fontawesome.css'
 import './css/templatemo-chain-app-dev.css'
 import './css/owl.css'
 import './css/animated.css'
-import './js/animation.js'
-import './js/custom.js'
 
 
 
 function App() {
-  const [isLoaded, setIsLoaded] = useState(false);
+  const [toggleModal, setToggleModal] = useState(false);
+  const [isLogin, setIsLogin] = useState(true);
+
+  function handleToggleModal() {
+    setToggleModal(!toggleModal);
+  }
+
 
   useEffect(() => {
-    setIsLoaded(true);
     // Initialize WOW animations after component mounts
     if (typeof window !== 'undefined' && window.WOW) {
       const wow = new window.WOW({
@@ -23,19 +26,29 @@ function App() {
       });
       wow.init();
     }
-    // Initialize custom scripts after component mounts
-    if (typeof window !== 'undefined' && window.jQuery) {
-      // Page loading animation
-      window.jQuery(window).on('load', function() {
-        window.jQuery('#js-preloader').addClass('loaded');
-      });
-    }
+    // Load scripts dynamically
+    const scripts = [
+      '/src/jquery/jquery.min.js',
+      '/src/bootstrap/js/bootstrap.bundle.min.js',
+      '/src/js/owl-carousel.js',
+      '/src/js/animation.js',
+      '/src/js/imagesloaded.js',
+      '/src/js/custom.js',
+      '/src/js/popup.js'
+    ];
+
+    scripts.forEach(src => {
+      const script = document.createElement('script');
+      script.src = src;
+      script.async = true;
+      document.body.appendChild(script);
+    });
   }, []);
 
 
   return (
     <>
-     <div id="js-preloader" className={`js-preloader ${isLoaded ? 'loaded' : ''}`}>
+     {/* <div id="js-preloader" className={`js-preloader ${isLoaded ? 'loaded' : ''}`}>
     <div className="preloader-inner">
       <span className="dot" />
       <div className="dots">
@@ -44,7 +57,7 @@ function App() {
         <span />
       </div>
     </div>
-  </div>
+  </div> */}
   {/* ***** Preloader End ***** */}
   {/* ***** Header Area Start ***** */}
   <header
@@ -57,7 +70,7 @@ function App() {
         <div className="col-12">
           <nav className="main-nav">
             {/* ***** Logo Start ***** */}
-            <a href="index.html" className="logo">
+            <a href="#top" className="logo">
               <img src={Images.logo} alt="Chain App Dev" />
             </a>
             {/* ***** Logo End ***** */}
@@ -75,14 +88,14 @@ function App() {
                 <a href="#about">About</a>
               </li>
               <li className="scroll-to-section">
-                <a href="#pSricing">Pricing</a>
+                <a href="#pricing">Pricing</a>
               </li>
               <li className="scroll-to-section">
                 <a href="#newsletter">Newsletter</a>
               </li>
               <li>
                 <div className="gradient-button">
-                  <a id="modal_trigger" href="#modal">
+                  <a id="modal_trigger" onClick={handleToggleModal}>
                     <i className="fa fa-sign-in-alt" /> Sign In Now
                   </a>
                 </div>
@@ -98,110 +111,129 @@ function App() {
     </div>
   </header>
   {/* ***** Header Area End ***** */}
-  <div id="modal" className="popupContainer" style={{ display: "none" }}>
-    <div className="popupHeader">
-      <span className="header_title">Login</span>
-      <span className="modal_close">
-        <i className="fa fa-times" />
-      </span>
-    </div>
-    <section className="popupBody">
-      {/* Social Login */}
-      <div className="social_login">
-        <div className="">
-          <a href="#" className="social_box fb">
-            <span className="icon">
-              <i className="fab fa-facebook" />
-            </span>
-            <span className="icon_title">Connect with Facebook</span>
-          </a>
-          <a href="#" className="social_box google">
-            <span className="icon">
-              <i className="fab fa-google-plus" />
-            </span>
-            <span className="icon_title">Connect with Google</span>
-          </a>
-        </div>
-        <div className="centeredText">
-          <span>Or use your Email address</span>
-        </div>
-        <div className="action_btns">
-          <div className="one_half">
-            <a href="#" id="login_form" className="btn">
-              Login
-            </a>
-          </div>
-          <div className="one_half last">
-            <a href="#" id="register_form" className="btn">
-              Sign up
-            </a>
-          </div>
-        </div>
+  {toggleModal && (
+    <div
+      id="modal"
+      className="popupContainer"
+      style={
+        toggleModal
+          ? {
+              display: "block",
+              position: "fixed",
+              opacity: 1,
+              zIndex: 11000,
+              left: "50%",
+              marginLeft: "-165px",
+              top: 100,
+            }
+          : {
+              display: "none",
+            }
+      }
+      role="dialog"
+      aria-hidden={!toggleModal}
+    >
+      <div className="modal-header">
+        <h2>LOG IN </h2>
+        <span className="modal_close" onClick={handleToggleModal}>
+          ×
+        </span>
       </div>
-      {/* Username & Password Login form */}
-      <div className="user_login">
-        <form>
-          <label>Email / Username</label>
-          <input type="text" />
-          <br />
-          <label>Password</label>
-          <input type="password" />
-          <br />
-          <div className="checkbox">
-            <input id="remember" type="checkbox" />
-            <label htmlFor="remember">Remember me on this computer</label>
+      <section className="popupBody">
+        {/* Social Login - always show */}
+        <div className="social_login">
+          <div className="">
+            <a href="#" className="social_box fb">
+              <span className="icon">
+                <i className="fab fa-facebook" />
+              </span>
+              <span className="icon_title">Connect with Facebook</span>
+            </a>
+            <a href="#" className="social_box google">
+              <span className="icon">
+                <i className="fab fa-google-plus" />
+              </span>
+              <span className="icon_title">Connect with Google</span>
+            </a>
+          </div>
+          <div className="centeredText">
+            <span>Or use your Email address</span>
           </div>
           <div className="action_btns">
             <div className="one_half">
-              <a href="#" className="btn back_btn">
-                <i className="fa fa-angle-double-left" /> Back
-              </a>
-            </div>
-            <div className="one_half last">
-              <a href="#" className="btn btn_red">
+              <a href="#" id="login_form" className="btn" onClick={() => setIsLogin(true)}>
                 Login
               </a>
             </div>
-          </div>
-        </form>
-        <a href="#" className="forgot_password">
-          Forgot password?
-        </a>
-      </div>
-      {/* Register Form */}
-      <div className="user_register">
-        <form>
-          <label>Full Name</label>
-          <input type="text" />
-          <br />
-          <label>Email Address</label>
-          <input type="email" />
-          <br />
-          <label>Password</label>
-          <input type="password" />
-          <br />
-          <div className="checkbox">
-            <input id="send_updates" type="checkbox" />
-            <label htmlFor="send_updates">
-              Send me occasional email updates
-            </label>
-          </div>
-          <div className="action_btns">
-            <div className="one_half">
-              <a href="#" className="btn back_btn">
-                <i className="fa fa-angle-double-left" /> Back
-              </a>
-            </div>
             <div className="one_half last">
-              <a href="#" className="btn btn_red">
-                Register
+              <a href="#" id="register_form" className="btn" onClick={() => setIsLogin(false)}>
+                Sign up
               </a>
             </div>
           </div>
-        </form>
-      </div>
-    </section>
-  </div>
+        </div>
+        {/* Username & Password Login form */}
+        <div className="user_login" style={{ display: isLogin ? 'block' : 'none' }}>
+          <form>
+            <label>Username</label>
+            <input type="text" />
+            <br />
+            <label>Password</label>
+            <input type="password" />
+            <br />
+            <div className="checkbox">
+              <input id="remember" type="checkbox" />
+              <label htmlFor="remember">
+                Remember me on this computer
+              </label>
+            </div>
+            <div className="action_btns">
+              <div className="one_half">
+                <a href="#" className="btn btn_red" onClick={() => alert('Login functionality not implemented')}>
+                  Login
+                </a>
+              </div>
+            </div>
+          </form>
+        </div>
+        {/* Register Form */}
+        <div className="user_register" style={{ display: isLogin ? 'none' : 'block' }}>
+          <form>
+            <label>Full Name</label>
+            <input type="text" />
+            <br />
+            <label>Email Address</label>
+            <input type="email" />
+            <br />
+            <label>Password</label>
+            <input type="password" />
+            <br />
+            <div className="checkbox">
+              <input id="send_updates" type="checkbox" />
+              <label htmlFor="send_updates">
+                Send me occasional email updates
+              </label>
+            </div>
+            <div className="action_btns">
+              <div className="one_half last">
+                <a href="#" className="btn btn_red" onClick={() => alert('Register functionality not implemented')}>
+                  Register
+                </a>
+              </div>
+            </div>
+          </form>
+        </div>
+      </section>
+    </div>
+  )}
+  <div
+    id="lean_overlay"
+    style={
+      toggleModal
+        ? { display: "block", opacity: "0.6" }
+        : { display: "none" }
+    }
+  />
   <div
     className="main-banner wow fadeIn"
     id="top"
