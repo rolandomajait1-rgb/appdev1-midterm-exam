@@ -7,6 +7,7 @@ import { useState } from "react";
 function App() {
   const [toggleModal, setToggleModal] = useState(false);
   const [activeForm, setActiveForm] = useState('social');
+  const [menuOpen, setMenuOpen] = useState(false);
 
   function handleToggleModal() {
     setToggleModal(!toggleModal);
@@ -33,6 +34,10 @@ function App() {
 
   function showSocial() {
     setActiveForm('social');
+  }
+
+  function handleMenuToggle() {
+    setMenuOpen(!menuOpen);
   }
 
   return (
@@ -63,7 +68,7 @@ function App() {
             </a>
             {/* ***** Logo End ***** */}
             {/* ***** Menu Start ***** */}
-            <ul className="nav">
+            <ul className={`nav`} style={{ display: menuOpen ? 'block' : 'none' }}>
               <li className="scroll-to-section">
                 <a href="#top" className="active">
                   Home
@@ -89,7 +94,7 @@ function App() {
                 </div>
               </li>
             </ul>
-            <a className="menu-trigger">
+            <a className={`menu-trigger ${menuOpen ? 'active' : ''}`} onClick={handleMenuToggle}>
               <span>Menu</span>
             </a>
             {/* ***** Menu End ***** */}
@@ -189,7 +194,6 @@ function App() {
         </div>
       {/* Register Form */}
       <div className="user_register" style={{ display: activeForm === 'register' ? 'block' : 'none' }}>
-        <h1>REGISTER</h1>
         <form onSubmit={handleRegister}>
           <label>Full Name</label>
           <input type="text" />
