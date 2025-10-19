@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 
 
@@ -8,6 +8,18 @@ function App() {
   const [toggleModal, setToggleModal] = useState(false);
   const [activeForm, setActiveForm] = useState('social');
   const [menuOpen, setMenuOpen] = useState(false);
+
+  useEffect(() => {
+    // Initialize WOW.js for animations after component mounts
+    if (typeof window !== 'undefined' && window.WOW) {
+      const wow = new window.WOW({
+        animateClass: 'animated',
+        offset: 50,
+        mobile: true
+      });
+      wow.init();
+    }
+  }, []);
 
   function handleToggleModal() {
     setToggleModal(!toggleModal);
